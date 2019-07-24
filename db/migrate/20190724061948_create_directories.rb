@@ -4,6 +4,6 @@ class CreateDirectories < ActiveRecord::Migration[5.2]
       t.string  :name
     end
 
-    add_reference :directories, :parent, index: true
+    add_reference :directories, :parent, index: true, null: true
   end
 end
