@@ -1,4 +1,7 @@
 class DirectoryPosition < ApplicationRecord
-  belongs_to  :directory, foreign_key:  "directory_id"
-  belongs_to  :directory, foreign_key:  "child_id"
+  belongs_to  :parent, class_name: 'Directory'
+  belongs_to  :child, class_name: 'Directory'
+
+
+  
 end

@@ -1,7 +1,8 @@
 <%# # for brevities sake, just throwing it all in a single controller/view %>
 <h1><%= link_to "Directories", directories_path() %></h1>
 <% if @current_directory.present? %>
-  <h3><%= @current_directory.name %>  <%= link_to "UP", directories_path(current_id: @current_directory.parent_id ) %></h3>
+  <h3><%= link_to "UP", directories_path(current_id: @current_directory.parent_id ) %></h3>
+  <h3><%= @current_directory.full_path %></h3>
 <% else %>
   <h3>Top</h3>
 <% end %>
@@ -32,7 +33,7 @@
 <%= form_for @note, url: notes_path(@note) do |f| %>
   <%= f.text_field :name %>
   <%= f.text_field :note_text %>
-  <%= f.hidden_field :directories_id, value: @current_directory.present? ? @current_directory.id : nil %>
+  <%= f.hidden_field :directory_id, value: @current_directory.present? ? @current_directory.id : nil %>
   <%= f.submit "Create Note" %>
 <% end %>
 

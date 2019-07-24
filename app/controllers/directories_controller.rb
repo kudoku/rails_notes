@@ -5,15 +5,15 @@ class DirectoriesController < ApplicationController
   def index
     @current_directory = Directory.find_by(id: index_params[:current_id])
 
-    parent_id = @current_directory.present? ? @current_directory.id : index_params[:parent_id]
+    parent_id = @current_directory.present? ? @current_directory.id : 0
 
     @directories = Directory.where(parent_id: parent_id)
     @directories.where(parent_id: parent_id).where("name ILIKE ?", "%#{index_params[:search_term]}%") if index_params[:search_term]
 
     @directory = Directory.new(parent_id: parent_id)
 
-    @note = Note.new(directories_id: parent_id)
-    @notes = Note.where(directories_id: parent_id)
+    @note = Note.new(directory_id: parent_id)
+    @notes = Note.where(directory_id: parent_id)
   end
 
   def create
