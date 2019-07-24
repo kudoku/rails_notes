@@ -1,19 +1,21 @@
 <%# # for brevities sake, just throwing it all in a single controller/view %>
 <h1><%= link_to "Directories", directories_path() %></h1>
-<h3><%= @current_directory.present? ? @current_directory.name : '' %></h3>
+<% if @current_directory.present? %>
+  <h3><%= @current_directory.name %>  <%= link_to "UP", directories_path(current_id: @current_directory.parent_id ) %></h3>
+<% else %>
+  <h3>Top</h3>
+<% end %>
+
 <% @directories.each do |d| %>
   <p> <%= d.id %> <%= d.name %> <%= link_to "#{d.name}", directories_path(current_id: d.id) %> </p>
 <% end %>
 
 <br>
 <br>
-
 <h3>notes</h3>
 <% @notes.each do |n| %>
-  <p> <%= n.id %> <%= n.name %> <%= link_to "#{n.name}" %> </p>
+  <p> <%= n.id %> <%= n.name %> </p>
 <% end %>
-
-
 
 <br>
 <br>
@@ -27,8 +29,17 @@
 <br>
 <br>
 <h3>Create note in current dir</h3>
-<%= form_for @note, url: {action: "create"} do |f| %>
+<%= form_for @note, url: notes_path(@note) do |f| %>
   <%= f.text_field :name %>
   <%= f.text_field :note_text %>
+  <%= f.hidden_field :directories_id, value: @current_directory.present? ? @current_directory.id : nil %>
   <%= f.submit "Create Note" %>
+<% end %>
+
+<br>
+<br>
+<h3>Search</h3>
+<%= form_tag directories_path(), method: 'get' do %>
+  <%= text_field_tag :search, params[:search]%>
+  <%= submit_tag "Search" %>
 <% end %>

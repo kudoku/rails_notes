@@ -5,6 +5,6 @@ class CreateNotes < ActiveRecord::Migration[5.2]
       t.text    :note_text
     end
 
-    add_reference :notes, :directories, foreign_key: true, index: true
+    add_reference :notes, :directories, foreign_key: true, index: true, null: true
   end
 end

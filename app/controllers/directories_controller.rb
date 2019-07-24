@@ -8,6 +8,7 @@ class DirectoriesController < ApplicationController
     parent_id = @current_directory.present? ? @current_directory.id : index_params[:parent_id]
 
     @directories = Directory.where(parent_id: parent_id)
+    @directories.where(parent_id: parent_id).where("name ILIKE ?", "%#{index_params[:search_term]}%") if index_params[:search_term]
 
     @directory = Directory.new(parent_id: parent_id)
 
@@ -27,6 +28,6 @@ class DirectoriesController < ApplicationController
     end
 
     def index_params
-      params.permit(:parent_id, :child_id, :current_id)
+      params.permit(:parent_id, :child_id, :current_id, :search_term)
     end
 end

@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root 'directories#index'
 
   resources :directories
+  resources :notes
 end
