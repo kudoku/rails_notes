@@ -1,0 +1,14 @@
+<%# # for brevities sake, just throwing it all in a single controller/view %>
+<h1>Directories</h1>
+<% @directories.each do |d| %>
+  <p> d.name </p>
+  <p><%#= link_to "#{d.name}", directories_index_path(directory_id: d.id) %><p>
+<% end %>
+
+
+
+
+<%= form_for @directory, url: {action: "create"} do |f| %>
+  <%= f.text_field :name %>
+  <%= f.submit "Create Directory" %>
+<% end %>
