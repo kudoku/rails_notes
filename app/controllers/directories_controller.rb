@@ -14,6 +14,8 @@ class DirectoriesController < ApplicationController
 
     @note = Note.new(directory_id: parent_id)
     @notes = Note.where(directory_id: parent_id)
+
+    @search_results = Note.search(index_params[:note_search_term]) if index_params[:note_search_term]
   end
 
   def create
@@ -28,6 +30,6 @@ class DirectoriesController < ApplicationController
     end
 
     def index_params
-      params.permit(:parent_id, :child_id, :current_id, :search_term)
+      params.permit(:parent_id, :child_id, :current_id, :note_search_term)
     end
 end

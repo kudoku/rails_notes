@@ -41,6 +41,14 @@
 <br>
 <h3>Search</h3>
 <%= form_tag directories_path(), method: 'get' do %>
-  <%= text_field_tag :search, params[:search]%>
+  <%= text_field_tag :note_search_term, params[:note_search_term]%>
   <%= submit_tag "Search" %>
+<% end %>
+
+<% if @search_results.present? %>
+  <h3>Search Results</h3>
+  <% @search_results.each do |n| %>
+    <p>Found <%= @search_results.count%> result(s)</p>
+    <p> <%= n.name %> <%= link_to "#{n.directory.full_path}", directories_path(current_id: n.directory.id) %> </p>
+  <% end %>
 <% end %>
